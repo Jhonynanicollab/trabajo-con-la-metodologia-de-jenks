@@ -1,15 +1,3 @@
-# ==============================================================================
-# PROYECTO: APTITUD AGROCLIMÁTICA - REGIÓN PUNO
-# OBJETIVO: Dos Planificaciones → (1) Espacial General | (2) Producto: Quinua
-# Metodología: Jenks Natural Breaks | NASA POWER | SENAMHI | SAL250 | ENA 2025
-# VERSIÓN CORREGIDA — correcciones aplicadas:
-#   [C1] mosaic() en terra requiere fun= y uso correcto de do.call
-#   [C2] Renombrar columna "AÑO" → "ANIO" y "MES" asegurado como integer
-#   [C3] Diagnóstico de CC_2/CC_3 antes de construir UBIGEO
-#   [C4] rm(v_dem) liberado después de rasters de temperatura/precipitación
-#   [C5] Verificación de columnas P223B_3 y P223B_6 antes de usarlas
-#   [C6] tryCatch() en guardar_panel() para capturar errores por panel
-# ==============================================================================
 
 library(terra)
 library(sf)
@@ -658,28 +646,3 @@ guardar_panel("img_08_riesgo_heladas.png", expr = {
   plot(shp_puno_utm, add = TRUE, border = "gray30", lwd = 0.5)
 })
 
-# ==============================================================================
-# RESUMEN FINAL EN CONSOLA
-# ==============================================================================
-cat("\n")
-cat("=============================================================\n")
-cat("   PLANIFICACION AGROCLIMATICA PUNO — PROCESO COMPLETADO    \n")
-cat("=============================================================\n")
-cat(sprintf("  Temperatura base (fusion)   : %5.2f °C\n",      temp_base_fusion))
-cat(sprintf("  Precipitacion base (fusion) : %5.1f mm/año\n",  precip_base_fusion))
-cat(sprintf("  Dias helada promedio        : %5.1f dias/año\n", dias_helada_anual))
-cat(sprintf("  Distritos quinueros mapeados: %3d\n",            nrow(mapa_quinua)))
-cat(sprintf("  Clases Jenks rendimiento    : %3d\n",            length(cortes_jenks) - 1))
-cat("-------------------------------------------------------------\n")
-cat("  ARCHIVOS GENERADOS:\n")
-cat("  Compuestos  : planificacion_espacial_general.png\n")
-cat("               planificacion_quinua_puno.png\n")
-cat("  Individuales: img_01_elevacion.png  img_02_temperatura.png\n")
-cat("               img_03_precipitacion.png  img_04_suelos.png\n")
-cat("               img_05_rendimiento_jenks.png  img_06_zonas_termicas.png\n")
-cat("               img_07_zonas_precipitacion.png  img_08_riesgo_heladas.png\n")
-cat("  Tablas CSV  : nasa_power_resumen_mensual.csv\n")
-cat("               senamhi_resumen_anual.csv  senamhi_resumen_mensual.csv\n")
-cat("               fusion_nasa_senamhi_mensual.csv\n")
-cat("               jenks_rendimiento_quinua.csv  jenks_riesgo_heladas.csv\n")
-cat("=============================================================\n")
